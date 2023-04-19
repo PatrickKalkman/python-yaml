@@ -5,15 +5,12 @@ def modify_yaml_file(source_path, destination_path, log_level, cpu_request):
     with open(source_path, 'r') as input:
         yaml_data = yaml.safe_load(input)
 
-    # Modify the LOG_LEVEL
-    yaml_data['spec']['template']['spec']['containers'][0]['env'][0][
-        'value'
-    ] = str(log_level)
+    containers = yaml_data['spec']['template']['spec']['containers']
 
+    # Modify the LOG_LEVEL
+    containers[0]['env'][0]['value'] = str(log_level)
     # Modify the CPU request
-    yaml_data['spec']['template']['spec']['containers'][0]['resources'][
-        'requests'
-    ]['cpu'] = str(cpu_request)
+    containers[0]['resources']['requests']['cpu'] = str(cpu_request)
 
     with open(destination_path, 'w') as output:
         yaml.safe_dump(yaml_data, output)
