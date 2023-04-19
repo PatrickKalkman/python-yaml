@@ -34,3 +34,7 @@ jobs:
     - name: Run mypy
       run: |
         mypy .
+
+    - name: Run pytest
+      run: |
+        pytest        
