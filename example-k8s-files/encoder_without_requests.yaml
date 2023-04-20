@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workflow-encoder
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: workflow-encoder
+  strategy:
+    type: Recreate      
+  template:
+    metadata:   
+      labels:
+        app: workflow-encoder
+    spec:
+      containers:
+      - name: workflow-encoder
+        image: workflowencoder:3.5.1
+        env:        
+        - name: LOG_LEVEL
+          value: "1"

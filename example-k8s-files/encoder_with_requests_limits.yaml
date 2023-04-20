@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workflow-encoder
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: workflow-encoder
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: workflow-encoder
+    spec:
+      containers:
+      - env:
+        - name: LOG_LEVEL
+          value: '1'
+        image: workflowencoder:3.5.1
+        name: workflow-encoder
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 512Mi
