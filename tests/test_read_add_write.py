@@ -1,4 +1,3 @@
-import os
 import yaml
 from read_add_write import read_yaml_file, add_resources_section
 from read_add_write import write_yaml_file
@@ -6,10 +5,9 @@ import pytest
 
 
 @pytest.fixture(scope='module')
-def test_add_resources_section(tmpdir):
+def test_add_resources_section():
     source_file = './example-k8s-files/encoder_without_requests.yaml'
-    destination_file = os.path.join(tmpdir,
-                                    './example-k8s-files/result.yaml')
+    destination_file = './example-k8s-files//result.yaml'
     cpu_request = '200m'
     memory_request = '512Mi'
     cpu_limit = '500m'

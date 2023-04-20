@@ -1,6 +1,7 @@
 import os
 import yaml
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 
 def get_yaml_files_in_directory(directory):
@@ -23,10 +24,13 @@ def validate_yaml_file(file_path):
 
 def validate_all_yaml_files(files):
     invalid_files = []
-    for file in files:
-        error_message = validate_yaml_file(file)
+    with ThreadPoolExecutor() as executor:
+        results = executor.map(validate_yaml_file, files)
+
+    for file, error_message in zip(files, results):
         if error_message:
             invalid_files.append((file, error_message))
+
     return invalid_files
 
 
